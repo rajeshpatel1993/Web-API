@@ -1,0 +1,38 @@
+<div class="container">
+  <div id="login-row" class="row justify-content-center align-items-center">
+    <div id="login-column" class="col-md-6">
+      <div id="login-box" class="col-md-12">
+        <form id="login-form" class="form" [formGroup]="shoppingForm" (ngSubmit)="onSubmit()">
+          <h3 class="text-center text-info">Shoping</h3>
+          <div class="form-group" *ngIf="isEdit">
+            <label for="shopingDate" class="text-info">Shoping Date:</label><br>
+            <input type="date"  id="shopingDate" class="form-control" formControlName="shopingDate" [value]=" shopData['shop_date']  | date:'yyyy-MM-dd': null">
+          </div>
+
+          <div class="form-group" *ngIf="!isEdit">
+            <label for="shopingDate" class="text-info">Shoping Date:</label><br>
+            <input type="date"  id="shopingDate" class="form-control" formControlName="shopingDate">
+          </div>
+
+          <div class="form-group">
+            <label for="item" class="text-info">Item:</label><br>
+            <input type="text"  id="item" class="form-control" formControlName="shopingTitle" [value]="isEdit ? shopData['shop_title'] : null">
+          </div>
+
+          <div class="form-group">
+            <label for="qty" class="text-info">Qty:</label><br>
+            <input type="text"  id="qty" class="form-control" formControlName="qty" [value]="isEdit ? shopData['qty'] : null">
+          </div>
+
+          <input type="hidden" formControlName="shop_id">
+
+          <div class="form-group">
+            <label for="isPurchased" class="text-info"><span>Is Purchased</span> <span><input id="isPurchased" type="checkbox" formControlName="is_purchased"></span></label><br>
+            <input type="submit" name="submit" class="btn btn-info btn-md" value="Save">
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
