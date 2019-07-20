@@ -9,7 +9,9 @@ import { SignupComponent } from './signup/signup.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { HeaderComponent } from './header/header.component';
-import { ShoppingComponent } from './shopping/shopping.component';
+import { ShopingComponent } from './shoping/shoping.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HshopComponent } from './hshop/hshop.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { ShoppingComponent } from './shopping/shopping.component';
     LoginComponent,
     SignupComponent,
     HeaderComponent,
-    ShoppingComponent
+    ShopingComponent,
+    PageNotFoundComponent,
+    HshopComponent
   ],
   imports: [
     BrowserModule,

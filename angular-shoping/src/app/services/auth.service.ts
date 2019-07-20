@@ -37,4 +37,10 @@ export class AuthService {
     }));
   }
 
+  getLoggedInUser(){
+
+    let loggedUser = JSON.parse(localStorage.getItem("currentUser"));
+    return loggedUser["result"]._id;
+  }
+
 }

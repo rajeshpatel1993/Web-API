@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
           // this.error = error;
           // this.loading = false;
         });
-    console.log(username);
+    // console.log(username);
   }
 
   redirectToSignup(){
