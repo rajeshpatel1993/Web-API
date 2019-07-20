@@ -1,9 +1,68 @@
-const Product = require('../models/user');
+const User = require('../models/user');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
+const secret = "aifsf";
 
 exports.signup = (req,res, next) => {
-    res.send("hello");
+    const { username, password } = req.body;
+    let result = {};
+    let status = 200;
+    const user = new User({ username, password }); // document = instance of a model
+    user.save((err, user) => {
+        console.log(err);
+        if (!err) {
+          exports.login();
+
+        } else {
+          status = 500;
+          result.status = status;
+          result.error = err;
+        }
+        res.status(status).send(result);
+      });
 };
+
+
+exports.login = (req,res, next) => {
+    const { username, password } = req.body;
+    let result = {};
+    let status = 200;
+
+
+    User.findOne({username}, (err, user) => {
+        if (!err && user) {
+          bcrypt.compare(password, user.password).then(match => {
+            if (match) {
+
+                const payload = { user: user.username };
+                const options = { expiresIn: '8h', issuer: 'http://localhost:3100' };
+                const token = jwt.sign(payload, secret, options);
+                
+                result.token = token;
+                result.status = status;
+                result.result = user;
+            } else {
+              status = 400;
+              result.status = status;
+              result.error = 'Authentication error';
+            }
+            res.status(status).send(result);
+          }).catch(err => {
+            status = 500;
+            result.status = status;
+            result.error = err;
+            res.status(status).send(result);
+          });
+        } else {
+          status = 404;
+          result.status = status;
+          result.error = err;
+          res.status(status).send(result);
+        }
+      });
+};
+
 // exports.getAddProduct = (req, res, next) => {
 //   res.render('admin/edit-product', {
 //     pageTitle: 'Add Product',
