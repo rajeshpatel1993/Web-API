@@ -34,7 +34,7 @@ export class ShopingComponent implements OnInit {
         is_purchased: ['', Validators.required],
         shop_id: ['']
       }
-    )
+    );
 
     this.loggedInUserId = this._authService.getLoggedInUser();
 

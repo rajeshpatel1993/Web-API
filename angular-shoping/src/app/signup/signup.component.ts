@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {first} from "rxjs/internal/operators";
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
@@ -10,19 +10,28 @@ import {Router} from "@angular/router";
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
-  public signupForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-  });
-
-  constructor(private _authService: AuthService, private _router: Router) { }
+  public signupForm : FormGroup;
+  public submitted : boolean = false;
+  constructor(private _authService: AuthService, private _router: Router, private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.signupForm = this._formBuilder.group(
+      {
+        username : ['', Validators.required],
+        password: ['', Validators.required]
+      }
+    );
   }
 
 
   signup(){
+
+    this.submitted = true;
+
+    if(this.signupForm.invalid){
+      return;
+    }
+
     const {username,password} = this.signupForm.value;
 
     this._authService.signup({username,password}) .pipe(first())
@@ -37,6 +46,8 @@ export class SignupComponent implements OnInit {
     // console.log(username);
   }
 
+
+  get f() { return this.signupForm.controls; }
 
   redirectToLogin(){
     this._router.navigate(["/login"]);
