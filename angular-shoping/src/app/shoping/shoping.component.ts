@@ -22,6 +22,8 @@ export class ShopingComponent implements OnInit {
   public isEdit: boolean = false;
   public shoppingId: string;
   public shopData:any;
+  public submitted : boolean = false;
+
 
   constructor(private _activatedRoute: ActivatedRoute, private _formBuilder: FormBuilder , private _authService: AuthService, private _shopService : ShopService, private _router: Router) { }
 
@@ -49,8 +51,16 @@ export class ShopingComponent implements OnInit {
 
   }
 
+  get f() { return this.shoppingForm.controls; }
+
   onSubmit(){
-    console.log(this.shoppingForm.value);
+    // console.log(this.shoppingForm.value);
+
+    this.submitted = true;
+
+    if(this.shoppingForm.invalid){
+      return;
+    }
 
     let {shopingDate, shopingTitle, qty, is_purchased, shop_id} = this.shoppingForm.value;
 

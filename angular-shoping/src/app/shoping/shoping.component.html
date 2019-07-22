@@ -11,17 +11,33 @@
 
           <div class="form-group">
             <label for="shopingDate" class="text-info">Shoping Date:</label><br>
-            <input type="date"  id="shopingDate" class="form-control" formControlName="shopingDate">
+            <input type="date"  id="shopingDate" class="form-control" formControlName="shopingDate" [ngClass]="{ 'is-invalid': submitted && f.shopingDate.errors }">
+
+
+            <div *ngIf="submitted && f.shopingDate.errors" class="invalid-feedback">
+              <div *ngIf="f.shopingDate.errors.required">Shopping Date is required</div>
+            </div>
+
           </div>
 
           <div class="form-group">
             <label for="item" class="text-info">Item:</label><br>
-            <input type="text"  id="item" class="form-control" formControlName="shopingTitle">
+            <input type="text"  id="item" class="form-control" formControlName="shopingTitle" [ngClass]="{ 'is-invalid': submitted && f.shopingTitle.errors }">
+
+            <div *ngIf="submitted && f.shopingTitle.errors" class="invalid-feedback">
+              <div *ngIf="f.shopingTitle.errors.required">Item name is required</div>
+            </div>
+
           </div>
 
           <div class="form-group">
             <label for="qty" class="text-info">Qty:</label><br>
-            <input type="text"  id="qty" class="form-control" formControlName="qty">
+            <input type="text"  id="qty" class="form-control" formControlName="qty" [ngClass]="{ 'is-invalid': submitted && f.qty.errors }">
+
+            <div *ngIf="submitted && f.qty.errors" class="invalid-feedback">
+              <div *ngIf="f.qty.errors.required">Qty is required</div>
+            </div>
+
           </div>
 
           <input type="hidden" formControlName="shop_id">
