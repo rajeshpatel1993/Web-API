@@ -10,7 +10,7 @@ exports.signup = (req,res, next) => {
     let status = 200;
     const user = new User({ username, password }); // document = instance of a model
     user.save((err, user) => {
-        console.log(err);
+        // console.log(err);
         if (!err) {
           exports.login();
 
