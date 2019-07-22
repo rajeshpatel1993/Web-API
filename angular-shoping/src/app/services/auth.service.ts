@@ -43,4 +43,9 @@ export class AuthService {
     return loggedUser["result"]._id;
   }
 
+  logOut(){
+    localStorage.removeItem('currentUser');
+
+  }
+
 }

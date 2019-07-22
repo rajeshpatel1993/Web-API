@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
+import {AuthService} from "./services/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-shoping';
+
+  constructor(private _authService : AuthService, private _router: Router) { }
+
+  ngOnInit() {
+   if( this.loggedIn()){
+     this._router.navigate(["home"]);
+   }
+  }
+
+  public loggedIn(): boolean{
+    return localStorage.getItem('currentUser') !==  null;
+  }
+
 }
