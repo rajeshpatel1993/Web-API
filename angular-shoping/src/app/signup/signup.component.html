@@ -6,7 +6,7 @@
           <h5 class="card-title text-center">Sign Up</h5>
           <form class="form-signin" [formGroup]="signupForm" (submit)="signup()">
             <div class="form-label-group">
-              <input type="text" id="username" class="form-control"  formControlName="username" placeholder="Username" autofocus>
+              <input type="text" id="username" class="form-control"  formControlName="username" placeholder="Username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" autofocus>
               <label for="username">Username</label>
 
               <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
@@ -16,7 +16,7 @@
             </div>
 
             <div class="form-label-group">
-              <input type="password" id="inputPassword" class="form-control" placeholder="Password" formControlName="password">
+              <input type="password" id="inputPassword" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
               <label for="inputPassword">Password</label>
               <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                 <div *ngIf="f.password.errors.required">Password is required</div>

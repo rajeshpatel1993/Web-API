@@ -24,6 +24,8 @@ export class SignupComponent implements OnInit {
   }
 
 
+  get f() { return this.signupForm.controls; }
+
   signup(){
 
     this.submitted = true;
@@ -47,7 +49,7 @@ export class SignupComponent implements OnInit {
   }
 
 
-  get f() { return this.signupForm.controls; }
+
 
   redirectToLogin(){
     this._router.navigate(["/login"]);
