@@ -4,7 +4,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 exports.addShop = (req, res, next) => {
     let {shopingDate, shopingTitle, qty, is_purchased, user_id, shop_id} = req.body;
-    const shopUpdate = { shopingDate, shopingTitle, qty, is_purchased };
+    const shopUpdate = { shop_date: shopingDate, shop_title: shopingTitle, qty, is_purchased };
 
     let result = {};
     let status = 200;

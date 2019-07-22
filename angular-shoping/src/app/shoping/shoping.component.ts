@@ -50,14 +50,16 @@ export class ShopingComponent implements OnInit {
   }
 
   onSubmit(){
-    let {shopingDate, shopingTitle, qty, is_purchased} = this.shoppingForm.value;
+    console.log(this.shoppingForm.value);
+
+    let {shopingDate, shopingTitle, qty, is_purchased, shop_id} = this.shoppingForm.value;
 
     if(is_purchased == ""){
       is_purchased = false;
     }else{
       is_purchased = true;
     }
-    this.addShopingSubscription = this._shopService.addShoping({"user_id" : this.loggedInUserId, shopingDate, shopingTitle, qty, is_purchased}) .pipe(first())
+    this.addShopingSubscription = this._shopService.addShoping({"user_id" : this.loggedInUserId, shopingDate, shopingTitle, qty, is_purchased, shop_id}) .pipe(first())
       .subscribe(
         data => {
           // console.log(data);
@@ -69,6 +71,8 @@ export class ShopingComponent implements OnInit {
         });
   }
 
+
+
   getShopValue(shopId){
     this.getShopSubscription = this._shopService.getShop(shopId,this.loggedInUserId).subscribe(data => {
       // console.log(data);
@@ -76,10 +80,21 @@ export class ShopingComponent implements OnInit {
       this.shopData = data;
       // console.log(this.shopData['shop_date']);
 
+      this.shoppingForm.controls['shopingTitle'].setValue(this.shopData["shop_title"]);
+      this.shoppingForm.controls['qty'].setValue(this.shopData["qty"]);
+      this.shoppingForm.controls['shopingDate'].setValue(this.formatDate(this.shopData['shop_date']));
+      this.shoppingForm.controls['shop_id'].setValue(this.shoppingId);
+
+
+
 
     }, error => {
 
     });
+  }
+
+  public formatDate(d){
+    return new Date(d).toISOString().split('T')[0];
   }
 
   onDestroy(){
